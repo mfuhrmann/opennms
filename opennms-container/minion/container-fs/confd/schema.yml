@@ -1,0 +1,92 @@
+---
+# Minion configuration schema
+version: "foo"
+
+categories:
+  # IPC Configuration
+  ipc:
+    categories:
+      # IPC Configuration :: gRPC
+      grpc:
+        config:
+          -
+            name: "Host"
+            type: host
+            label: "TODO"
+            tip: "TODO"
+            key: "/ipc/grpc/host"
+            example: "TODO"
+          -
+            name: "Properties"
+            type: properties
+            label: "Additional gRPC configuration properties for IPC gRPC"
+            tip: "TODO"
+            key: "/ipc/grpc"
+            example: "TODO"
+      # IPC Configuration :: RPC
+      rpc:
+        categories:
+          # IPC Configuration :: RPC :: Kafka
+          kafka:
+            config:
+              -
+                name: "Bootstrap servers"
+                type:
+                  set:
+                    type: host
+                    separator: ","
+                label: "Kafka bootstrap servers for IPC RPC"
+                tip: "TODO"
+                key: "/ipc/rpc/kafka/bootstrap.servers"
+                example: "TODO"
+              -
+                name: "Properties"
+                type: properties
+                label: "Additional Kafka configuration properties for IPC RPC"
+                tip: "TODO"
+                key: "/ipc/rpc/kafka"
+                example: "TODO"
+      # IPC Configuration :: Sink
+      sink:
+        categories:
+          # IPC Configuration :: Sink :: Kafka
+          kafka:
+            config:
+              -
+                name: "Bootstrap servers"
+                type:
+                  set:
+                    type: host
+                    separator: ","
+                label: "Kafka bootstrap servers for IPC Sink"
+                tip: "TODO"
+                key: "/ipc/sink/kafka/bootstrap.servers"
+                example: "TODO"
+              -
+                name: "Properties"
+                type: properties
+                label: "Additional Kafka configuration properties for IPC Sink"
+                tip: "TODO"
+                key: "/ipc/sink/kafka"
+                example: "TODO"
+  web:
+    categories:
+      jetty:
+        config:
+         -
+           name: "HTTP listen port"
+           type: port
+           label: "Jetty HTTP listen port"
+           tip: "TODO"
+           key: "/jetty/web/port"
+           example: "TODO"
+        -
+          name: "Listen addresses"
+          type:
+            set:
+              type: host
+              separator: ","
+          label: "Jetty listen addresses"
+          tip: "TODO"
+          key: "/jetty/web/host"
+          example: "TODO"
