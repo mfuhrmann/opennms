@@ -49,8 +49,16 @@ categories:
         tip: "TODO"
         key: "/org.opennms.instance.id"
         example: "TODO"
+      - name: "system-properties"
+        type:
+          name: "properties"
+        description: "TODO"
+        tip: "TODO"
+        key: "/system/properties"
+        example: "TODO"
 
     categories:
+      # General :: Controller
       - name: "controller"
         description: "TODO"
         tags:
@@ -93,6 +101,7 @@ categories:
     tags:
       - "maas-hide"
     categories:
+      # Dominion :: gRPC
       - name: "grpc"
         description: "TODO"
         config:
@@ -117,6 +126,7 @@ categories:
             tip: "TODO"
             key: "/dominion/grpc/client-secret"
             example: "TODO"
+      # Dominion :: SCV
       - name: "scv"
         description: "TODO"
         config:
@@ -132,8 +142,10 @@ categories:
   - name: "karaf"
     description: "TODO"
     categories:
+      # Karaf :: Management
       - name: "management"
         description: "TODO"
+        # Karaf :: Management :: RMI
         categories:
           - name: "rmi"
             description: "TODO"
@@ -167,9 +179,11 @@ categories:
                 key: "/karaf/management/rmi/server/port"
                 example: "TODO"
 
+        # Karaf :: Shell
       - name: "shell"
         description: "TODO"
         categories:
+          # Karaf :: Shell :: SSH
           - name: "ssh"
             description: "TODO"
             config:
@@ -224,6 +238,7 @@ categories:
                 key: "/aws"
                 example: "TODO"
         categories:
+          # IPC Configuration :: AWS :: SQS
           - name: "sqs"
             description: "TODO"
             config:
