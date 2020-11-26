@@ -12,27 +12,30 @@ version: "foo"
 categories:
   # IPC Configuration
   - name: "ipc"
+    description: "TODO"
     categories:
       # IPC Configuration :: gRPC
       - name: "grpc"
+        description: "TODO"
         config:
           - name: "Host"
             type:
               name: "host-with-port"
-            label: "TODO"
+            description: "TODO"
             tip: "TODO"
             key: "/ipc/grpc/host"
             example: "TODO"
           - name: "Properties"
             type:
               name: "properties"
-            label: "Additional gRPC configuration properties for IPC gRPC"
+            description: "Additional gRPC configuration properties for IPC gRPC"
             tip: "TODO"
             key: "/ipc/grpc"
             example: "TODO"
             
       # IPC Configuration :: RPC
       - name: "rpc"
+        description: "TODO"
         categories:
           # IPC Configuration :: RPC :: Kafka
           - kafka:
@@ -44,20 +47,21 @@ categories:
                     type:
                       name: "host-with-port"
                     separator: ","
-                label: "Kafka bootstrap servers for IPC RPC"
+                description: "Kafka bootstrap servers for IPC RPC"
                 tip: "TODO"
                 key: "/ipc/rpc/kafka/bootstrap.servers"
                 example: "TODO"
               - name: "Properties"
                 type:
                   name: "properties"
-                label: "Additional Kafka configuration properties for IPC RPC"
+                description: "Additional Kafka configuration properties for IPC RPC"
                 tip: "TODO"
                 key: "/ipc/rpc/kafka"
                 example: "TODO"
                 
       # IPC Configuration :: Sink
       - name: "sink"
+        description: "TODO"
         categories:
           # IPC Configuration :: Sink :: Kafka
           - name: "kafka"
@@ -69,28 +73,46 @@ categories:
                     type:
                       name: "host-with-port"
                     separator: ","
-                label: "Kafka bootstrap servers for IPC Sink"
+                description: "Kafka bootstrap servers for IPC Sink"
                 tip: "TODO"
                 key: "/ipc/sink/kafka/bootstrap.servers"
                 example: "TODO"
               - name: "Properties"
                 type:
                   name: "properties"
-                label: "Additional Kafka configuration properties for IPC Sink"
+                description: "Additional Kafka configuration properties for IPC Sink"
                 tip: "TODO"
                 key: "/ipc/sink/kafka"
                 example: "TODO"
                 
+  # Netmgt
+  - name: "netmgt"
+    description: "TODO"
+    categories:
+      # Netmgt :: Traps
+      - name: "traps"
+        description: "TODO"
+        config:
+          - name: "Properties"
+            type:
+              name: "properties"
+            description: "TODO"
+            tip: "TODO"
+            key: "/netmgt/traps"
+            example: "TODO"
+            
   # Web
   - name: "web"
+    description: "TODO"
     categories:
       # Web :: Jetty
       - name: "jetty"
+        description: "TODO"
         config:
           - name: "HTTP listen port"
             type:
               name: "port"
-            label: "Jetty HTTP listen port"
+            description: "Jetty HTTP listen port"
             tip: "TODO"
             key: "/jetty/web/port"
             example: "TODO"
@@ -101,7 +123,7 @@ categories:
                 type:
                   name: "host"
                 separator: ","
-            label: "Jetty listen addresses"
+            description: "Jetty listen addresses"
             tip: "TODO"
             key: "/jetty/web/host"
             example: "TODO"
