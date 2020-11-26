@@ -1,92 +1,107 @@
 ---
 # Minion configuration schema
+
+# Notes:
+# - The frontend may want to just fetch the categories first and then fetch the contents of each category separately
+# lazily
+
+# Version of Minion this schema configuration is applicable to
 version: "foo"
 
+# The root set of categories
 categories:
   # IPC Configuration
-  ipc:
+  - name: "ipc"
     categories:
       # IPC Configuration :: gRPC
-      grpc:
+      - name: "grpc"
         config:
-          -
-            name: "Host"
-            type: host
+          - name: "Host"
+            type:
+              name: "host-with-port"
             label: "TODO"
             tip: "TODO"
             key: "/ipc/grpc/host"
             example: "TODO"
-          -
-            name: "Properties"
-            type: properties
+          - name: "Properties"
+            type:
+              name: "properties"
             label: "Additional gRPC configuration properties for IPC gRPC"
             tip: "TODO"
             key: "/ipc/grpc"
             example: "TODO"
+            
       # IPC Configuration :: RPC
-      rpc:
+      - name: "rpc"
         categories:
           # IPC Configuration :: RPC :: Kafka
-          kafka:
+          - kafka:
             config:
-              -
-                name: "Bootstrap servers"
+              - name: "Bootstrap servers"
                 type:
-                  set:
-                    type: host
+                  name: "set"
+                  items:
+                    type:
+                      name: "host-with-port"
                     separator: ","
                 label: "Kafka bootstrap servers for IPC RPC"
                 tip: "TODO"
                 key: "/ipc/rpc/kafka/bootstrap.servers"
                 example: "TODO"
-              -
-                name: "Properties"
-                type: properties
+              - name: "Properties"
+                type:
+                  name: "properties"
                 label: "Additional Kafka configuration properties for IPC RPC"
                 tip: "TODO"
                 key: "/ipc/rpc/kafka"
                 example: "TODO"
+                
       # IPC Configuration :: Sink
-      sink:
+      - name: "sink"
         categories:
           # IPC Configuration :: Sink :: Kafka
-          kafka:
+          - name: "kafka"
             config:
-              -
-                name: "Bootstrap servers"
+              - name: "Bootstrap servers"
                 type:
-                  set:
-                    type: host
+                  name: "set"
+                  items:
+                    type:
+                      name: "host-with-port"
                     separator: ","
                 label: "Kafka bootstrap servers for IPC Sink"
                 tip: "TODO"
                 key: "/ipc/sink/kafka/bootstrap.servers"
                 example: "TODO"
-              -
-                name: "Properties"
-                type: properties
+              - name: "Properties"
+                type:
+                  name: "properties"
                 label: "Additional Kafka configuration properties for IPC Sink"
                 tip: "TODO"
                 key: "/ipc/sink/kafka"
                 example: "TODO"
-  web:
+                
+  # Web
+  - name: "web"
     categories:
-      jetty:
+      # Web :: Jetty
+      - name: "jetty"
         config:
-         -
-           name: "HTTP listen port"
-           type: port
-           label: "Jetty HTTP listen port"
-           tip: "TODO"
-           key: "/jetty/web/port"
-           example: "TODO"
-        -
-          name: "Listen addresses"
-          type:
-            set:
-              type: host
-              separator: ","
-          label: "Jetty listen addresses"
-          tip: "TODO"
-          key: "/jetty/web/host"
-          example: "TODO"
+          - name: "HTTP listen port"
+            type:
+              name: "port"
+            label: "Jetty HTTP listen port"
+            tip: "TODO"
+            key: "/jetty/web/port"
+            example: "TODO"
+          - name: "Listen addresses"
+            type:
+              name: "set"
+              items:
+                type:
+                  name: "host"
+                separator: ","
+            label: "Jetty listen addresses"
+            tip: "TODO"
+            key: "/jetty/web/host"
+            example: "TODO"
