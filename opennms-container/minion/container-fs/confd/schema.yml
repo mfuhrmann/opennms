@@ -36,48 +36,62 @@ version: "foo"
 
 # The root set of categories
 categories:
-  # Controller
-  - name: "controller"
+  # General
+  - name: "general"
     description: "TODO"
-    tags:
-      - "maas-disallow"
     config:
-      - name: "location"
+      # TODO: Should this key be hidden too?
+      - name: "instance-id"
         type:
           name: "string"
           validation: "TODO"
         description: "TODO"
         tip: "TODO"
-        key: "/location"
+        key: "/org.opennms.instance.id"
         example: "TODO"
-      - name: "id"
-        type:
-          name: "string"
-          validation: "TODO"
+
+    categories:
+      - name: "controller"
         description: "TODO"
-        tip: "TODO"
-        key: "/id"
-        example: "TODO"
-      - name: "broker-url"
-        type:
-          name: "url"
-        description: "TODO"
-        tip: "TODO"
-        key: "/broker-url"
-        example: "TODO"
-      - name: "http-url"
-        type:
-          name: "url"
-        description: "TODO"
-        tip: "TODO"
-        key: "/http-url"
-        example: "TODO"
+        tags:
+          - "maas-hide"
+        config:
+          - name: "location"
+            type:
+              name: "string"
+              validation: "TODO"
+            description: "TODO"
+            tip: "TODO"
+            key: "/location"
+            example: "TODO"
+          - name: "id"
+            type:
+              name: "string"
+              validation: "TODO"
+            description: "TODO"
+            tip: "TODO"
+            key: "/id"
+            example: "TODO"
+          - name: "broker-url"
+            type:
+              name: "url"
+            description: "TODO"
+            tip: "TODO"
+            key: "/broker-url"
+            example: "TODO"
+          - name: "http-url"
+            type:
+              name: "url"
+            description: "TODO"
+            tip: "TODO"
+            key: "/http-url"
+            example: "TODO"
 
   # Dominion
   - name: "dominion"
     description: "TODO"
     tags:
-      - "maas-disallow"
+      - "maas-hide"
     categories:
       - name: "grpc"
         description: "TODO"
@@ -96,6 +110,83 @@ categories:
             tip: "TODO"
             key: "/dominion/grpc/port"
             example: "TODO"
+          - name: "client-secret"
+            type:
+              name: "string"
+            description: "TODO"
+            tip: "TODO"
+            key: "/dominion/grpc/client-secret"
+            example: "TODO"
+      - name: "scv"
+        description: "TODO"
+        config:
+          - name: "provider"
+            type:
+              name: "string"
+            description: "TODO"
+            tip: "TODO"
+            key: "/scv/provider"
+            example: "TODO"
+
+  # Karaf
+  - name: "karaf"
+    description: "TODO"
+    categories:
+      - name: "management"
+        description: "TODO"
+        categories:
+          - name: "rmi"
+            description: "TODO"
+            config:
+              - name: "registry-host"
+                type:
+                  name: "host"
+                description: "TODO"
+                tip: "TODO"
+                key: "/karaf/management/rmi/registry/host"
+                example: "TODO"
+              - name: "registry-port"
+                type:
+                  name: "port"
+                description: "TODO"
+                tip: "TODO"
+                key: "/karaf/management/rmi/registry/port"
+                example: "TODO"
+              - name: "server-host"
+                type:
+                  name: "host"
+                description: "TODO"
+                tip: "TODO"
+                key: "/karaf/management/rmi/server/host"
+                example: "TODO"
+              - name: "server-port"
+                type:
+                  name: "port"
+                description: "TODO"
+                tip: "TODO"
+                key: "/karaf/management/rmi/server/port"
+                example: "TODO"
+
+      - name: "shell"
+        description: "TODO"
+        categories:
+          - name: "ssh"
+            description: "TODO"
+            config:
+              - name: "host"
+                type:
+                  name: "host"
+                description: "TODO"
+                tip: "TODO"
+                key: "/karaf/shell/ssh"
+                example: "TODO"
+              - name: "port"
+                type:
+                  name: "port"
+                description: "TODO"
+                tip: "TODO"
+                key: "/karaf/shell/port"
+                example: "TODO"
 
   # Minion Environment
   - name: "environment"
@@ -118,11 +209,37 @@ categories:
   - name: "ipc"
     description: "TODO"
     categories:
+      # IPC Configuration :: AWS
+      - name: "aws"
+        description: "TODO"
+        config:
+          - name: "properties"
+            description: "TODO"
+            config:
+              - name: "properties"
+                type:
+                  name: "properties"
+                description: "TODO"
+                tip: "TODO"
+                key: "/aws"
+                example: "TODO"
+        categories:
+          - name: "sqs"
+            description: "TODO"
+            config:
+              - name: "properties"
+                type:
+                  name: "properties"
+                description: "TODO"
+                tip: "TODO"
+                key: "/ipc/sqs"
+                example: "TODO"
+
       # IPC Configuration :: gRPC
       - name: "grpc"
         description: "TODO"
         config:
-          - name: "Host"
+          - name: "host"
             type:
               name: "host-with-port"
             description: "TODO"
@@ -166,6 +283,15 @@ categories:
       # IPC Configuration :: Sink
       - name: "sink"
         description: "TODO"
+        config:
+          - name: "offheap"
+            type:
+              name: "properties"
+            description: "TODO"
+            tip: "TODO"
+            key: "/ipc/sink/offheap"
+            example: "TODO"
+
         categories:
           # IPC Configuration :: Sink :: Kafka
           - name: "kafka"
@@ -242,5 +368,3 @@ categories:
             tip: "TODO"
             key: "/jetty/web/host"
             example: "TODO"
-
-        
