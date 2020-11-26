@@ -4,12 +4,38 @@
 # Notes:
 # - The frontend may want to just fetch the categories first and then fetch the contents of each category separately
 # lazily
+#
+# - Types to use:
+# host
+# host-with-port
+# properties
+# set
+# enum
+# indexed
+# string
 
 # Version of Minion this schema configuration is applicable to
 version: "foo"
 
 # The root set of categories
 categories:
+  # Minion Environment
+  - name: "environment"
+    description: "TODO"
+    # TODO: Find out if this type is correct
+    config:
+      - name: "java-opts"
+        type:
+          name: "indexed"
+          # TODO: What are the keys type's supposed to be?
+          items:
+            type:
+              name: "string"
+        description: "TODO"
+        tip: "TODO"
+        key: "/process-env/java-opts"
+        example: "TODO"
+        
   # IPC Configuration
   - name: "ipc"
     description: "TODO"
@@ -32,7 +58,7 @@ categories:
             tip: "TODO"
             key: "/ipc/grpc"
             example: "TODO"
-            
+
       # IPC Configuration :: RPC
       - name: "rpc"
         description: "TODO"
@@ -58,7 +84,7 @@ categories:
                 tip: "TODO"
                 key: "/ipc/rpc/kafka"
                 example: "TODO"
-                
+
       # IPC Configuration :: Sink
       - name: "sink"
         description: "TODO"
@@ -84,7 +110,7 @@ categories:
                 tip: "TODO"
                 key: "/ipc/sink/kafka"
                 example: "TODO"
-                
+
   # Netmgt
   - name: "netmgt"
     description: "TODO"
@@ -100,7 +126,18 @@ categories:
             tip: "TODO"
             key: "/netmgt/traps"
             example: "TODO"
-            
+      # Netmgt :: Syslog
+      - name: "syslog"
+        description: "TODO"
+        config:
+          - name: "Properties"
+            type:
+              name: "properties"
+            description: "TODO"
+            tip: "TODO"
+            key: "/netmgt/syslog"
+            example: "TODO"
+
   # Web
   - name: "web"
     description: "TODO"
@@ -127,3 +164,5 @@ categories:
             tip: "TODO"
             key: "/jetty/web/host"
             example: "TODO"
+
+        
