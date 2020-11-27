@@ -262,15 +262,12 @@ categories:
         description: "TODO"
         config:
           - name: "properties"
+            type:
+              name: "properties"
             label: "TODO"
-            config:
-              - name: "properties"
-                type:
-                  name: "properties"
-                label: "TODO"
-                description: "TODO"
-                key: "/aws"
-                example: "TODO"
+            description: "TODO"
+            key: "/aws"
+            example: "TODO"
         categories:
           # IPC Configuration :: AWS :: SQS
           - name: "sqs"
