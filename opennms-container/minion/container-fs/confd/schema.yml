@@ -31,6 +31,30 @@
 #             }
 #         ]
 # ]}
+#
+# - Document is broken down into categories which can be nested
+# - Categories have the following mandatory fields
+#   - name
+#   - label
+#   - description
+#   - config
+#
+# - Config is a list that has at least one item
+#   - Each item in a list has the following mandatory fields
+#   - name
+#   - label
+#   - description
+#   - example
+#   - type
+#   - key
+#
+# - Types have at least a name field and may also optionally have the following fields
+#   - validation
+#   - items (in the case the type is a collection)
+#     (items also have a type and a separator)
+#
+# - Additionally both categories and config can optionally have a 'tags' field containing arbitrary tags
+#   - Currently the tag 'maas-internal' is used to hide certain categories in MaaS
 
 # Version of Minion this schema configuration is applicable to
 version: "foo"
