@@ -15,6 +15,8 @@
 # enum
 # indexed
 # string
+# boolean
+# objects
 #
 # Example of generated input:
 # {[
@@ -422,3 +424,81 @@ categories:
             description: "TODO"
             key: "/jetty/web/host"
             example: "TODO"
+  # Telemetry
+  - name: "telemetry"
+    label: "TODO"
+    description: "TODO"
+    categories:
+      # Telemetry :: Flows
+      - name: "flows"
+        label: "TODO"
+        description: "TODO"
+        config:
+          - name: "flow-listener-def"
+            type:
+              - name: "objects"
+                fields:
+                  - name: "listener-name"
+                    type:
+                      name: "string"
+                      validation: "TODO"
+                  - name: "class-name"
+                    type:
+                      name: "string"
+                      validation: "TODO"
+                  - name: "parameters"
+                    type:
+                      name: "properties"
+                index-field: "listener-name"
+            label: "TODO"
+            description: "TODO"
+            key: "/telemetry/flows/listeners"
+            example: "TODO"
+          - name: "flow-parser-def"
+            type:
+              - name: "objects"
+                fields:
+                  - name: "parser-name"
+                    type:
+                      name: "string"
+                      validation: "TODO"
+                  - name: "class-name"
+                    type:
+                      name: "string"
+                      validation: "TODO"
+                  - name: "parameters"
+                    type:
+                      name: "properties"
+                index-field: "parser-name"
+            label: "TODO"
+            description: "TODO"
+            key: "/telemetry/flows/parsers"
+            example: "TODO"
+        categories:
+          # Telemetry :: Flows :: Single Port Listener
+          - name: "single-port-listener"
+            label: "TODO"
+            description: "TODO"
+            config:
+              - name: "enabled"
+                type:
+                  name: "boolean"
+                label: "TODO"
+                description: "TODO"
+                key: "/telemetry/flows/single-port-listener/enabled"
+                example: "TODO"
+              - name: "name"
+                type:
+                  name: "string"
+                  validation: "TODO"
+                label: "TODO"
+                description: "TODO"
+                key: "/telemetry/flows/single-port-listener/name"
+                example: "TODO"
+              - name: "parameters"
+                type:
+                  name: "properties"
+                label: "TODO"
+                description: "TODO"
+                key: "/telemetry/flows/single-port-listener/parameters"
+                example: "TODO"
