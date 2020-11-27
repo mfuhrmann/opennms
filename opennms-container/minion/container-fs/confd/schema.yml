@@ -64,6 +64,7 @@ categories:
   # General
   - name: "general"
     label: "TODO"
+    description: "TODO"
     config:
       # TODO: Should this key be hidden too?
       - name: "instance-id"
@@ -85,6 +86,7 @@ categories:
       # General :: Controller
       - name: "controller"
         label: "TODO"
+        description: "TODO"
         tags:
           - "maas-internal"
         config:
@@ -121,12 +123,14 @@ categories:
   # Dominion
   - name: "dominion"
     label: "TODO"
+    description: "TODO"
     tags:
       - "maas-internal"
     categories:
       # Dominion :: gRPC
       - name: "grpc"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "host"
             type:
@@ -152,6 +156,7 @@ categories:
       # Dominion :: SCV
       - name: "scv"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "provider"
             type:
@@ -163,14 +168,17 @@ categories:
   # Karaf
   - name: "karaf"
     label: "TODO"
+    description: "TODO"
     categories:
       # Karaf :: Management
       - name: "management"
         label: "TODO"
+        description: "TODO"
         categories:
           # Karaf :: Management :: RMI
           - name: "rmi"
             label: "TODO"
+            description: "TODO"
             config:
               - name: "registry-host"
                 type:
@@ -203,10 +211,12 @@ categories:
       # Karaf :: Shell
       - name: "shell"
         label: "TODO"
+        description: "TODO"
         categories:
           # Karaf :: Shell :: SSH
           - name: "ssh"
             label: "TODO"
+            description: "TODO"
             config:
               - name: "host"
                 type:
@@ -225,6 +235,7 @@ categories:
   # Minion Environment
   - name: "environment"
     label: "TODO"
+    description: "TODO"
     # TODO: Find out if this type is correct
     config:
       - name: "java-opts"
@@ -241,10 +252,12 @@ categories:
   # IPC Configuration
   - name: "ipc"
     label: "TODO"
+    description: "TODO"
     categories:
       # IPC Configuration :: AWS
       - name: "aws"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "properties"
             label: "TODO"
@@ -260,6 +273,7 @@ categories:
           # IPC Configuration :: AWS :: SQS
           - name: "sqs"
             label: "TODO"
+            description: "TODO"
             config:
               - name: "properties"
                 type:
@@ -271,6 +285,7 @@ categories:
       # IPC Configuration :: gRPC
       - name: "grpc"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "host"
             type:
@@ -289,9 +304,12 @@ categories:
       # IPC Configuration :: RPC
       - name: "rpc"
         label: "TODO"
+        description: "TODO"
         categories:
           # IPC Configuration :: RPC :: Kafka
-          - kafka:
+          - name: "kafka"
+            label: "TODO"
+            description: "TODO"
             config:
               - name: "bootstrap-servers"
                 type:
@@ -314,6 +332,7 @@ categories:
       # IPC Configuration :: Sink
       - name: "sink"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "offheap"
             type:
@@ -325,6 +344,8 @@ categories:
         categories:
           # IPC Configuration :: Sink :: Kafka
           - name: "kafka"
+            label: "TODO"
+            description: "TODO"
             config:
               - name: "bootstrap-servers"
                 type:
@@ -347,10 +368,12 @@ categories:
   # Netmgt
   - name: "netmgt"
     label: "TODO"
+    description: "TODO"
     categories:
       # Netmgt :: Traps
       - name: "traps"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "properties"
             type:
@@ -362,6 +385,7 @@ categories:
       # Netmgt :: Syslog
       - name: "syslog"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "properties"
             type:
@@ -373,10 +397,12 @@ categories:
   # Web
   - name: "web"
     label: "TODO"
+    description: "TODO"
     categories:
       # Web :: Jetty
       - name: "jetty"
         label: "TODO"
+        description: "TODO"
         config:
           - name: "http-listen-port"
             type:
