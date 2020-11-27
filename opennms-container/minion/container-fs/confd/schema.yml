@@ -499,3 +499,9 @@ categories:
                 description: "TODO"
                 key: "/telemetry/flows/single-port-listener/parameters"
                 example: "TODO"
+
+# TODO:
+# - Server certificates
+# - disable rDNS
+# - Jaeger tracing
+# - JMX URL
