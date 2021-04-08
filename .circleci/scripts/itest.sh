@@ -26,7 +26,7 @@ echo "#### Making sure git is up-to-date"
 git fetch --all
 
 echo "#### Generate project structure .json"
-./compile.pl --batch-mode --fail-at-end --legacy-local-repository --offline -Prun-expensive-tasks -Pbuild-bamboo org.opennms.maven.plugins:structure-maven-plugin:1.0:structure
+./compile.pl -s .circleci/scripts/structure-settings.xml --batch-mode --fail-at-end --legacy-local-repository -Prun-expensive-tasks -Pbuild-bamboo org.opennms.maven.plugins:structure-maven-plugin:1.0:structure
 
 echo "#### Determining tests to run"
 cd ~/project
@@ -54,9 +54,9 @@ deb-src http://archive.ubuntu.com/ubuntu/ trusty main restricted' | sudo tee /et
 # kill other apt-gets first to avoid problems locking /var/lib/apt/lists/lock - see https://discuss.circleci.com/t/could-not-get-lock-var-lib-apt-lists-lock/28337/6
 sudo killall -9 apt-get || true && \
             sudo apt-get update && \
-	    sudo apt-get -y install debconf-utils && \
-	    echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections && \
-            sudo env DEBIAN_FRONTEND=noninteractive apt-get install -f nsis R-base rrdtool
+            sudo apt-get -y install debconf-utils && \
+            echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections && \
+            sudo env DEBIAN_FRONTEND=noninteractive apt-get install -f R-base rrdtool || exit 1
 
 echo "#### Building Assembly Dependencies"
 ./compile.pl install -P'!checkstyle' \
@@ -67,7 +67,6 @@ echo "#### Building Assembly Dependencies"
            -DskipTests=true \
            -DskipITs=true \
            -Dci.instance="${CIRCLE_NODE_INDEX:-0}" \
-           -Dnsis.makensis.bin="$(which makensis)" \
            --batch-mode \
            "${CCI_FAILURE_OPTION:--fae}" \
            --also-make \
@@ -83,7 +82,6 @@ echo "#### Executing tests"
            -Dci.instance="${CIRCLE_NODE_INDEX:-0}" \
            -Dci.rerunFailingTestsCount="${CCI_RERUN_FAILTEST:-0}" \
            -Dcode.coverage="${CCI_CODE_COVERAGE:-false}" \
-           -Dnsis.makensis.bin="$(which makensis)" \
            --batch-mode \
            "${CCI_FAILURE_OPTION:--fae}" \
            -Dorg.opennms.core.test-api.dbCreateThreads=1 \

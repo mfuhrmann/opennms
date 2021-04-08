@@ -39,6 +39,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +53,10 @@ import org.opennms.netmgt.telemetry.protocols.netflow.parser.InvalidPacketExcept
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.Protocol;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.netflow9.proto.Header;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.netflow9.proto.Packet;
+import org.opennms.netmgt.telemetry.protocols.netflow.parser.session.SequenceNumberTracker;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.session.Session;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.session.TcpSession;
 import org.opennms.netmgt.telemetry.protocols.netflow.transport.FlowMessage;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -82,7 +82,7 @@ public class Netflow9ProtobufValidationTest {
         Utils.JsonConverter jsonConverter = new Utils.JsonConverter();
         List<String> jsonStrings = jsonConverter.getJsonStringFromResources("/flows/netflow9.json",
                 "/flows/netflow9_1.json");
-        List<Flow> jsonFlows = jsonConverter.convert(jsonStrings);
+        List<Flow> jsonFlows = jsonConverter.convert(jsonStrings, Instant.now());
         assertThat(jsonFlows, hasSize(12));
         for (int i = 0; i < 12; i++) {
             Assert.assertEquals(flows.get(i).getFlowSeqNum(), jsonFlows.get(i).getFlowSeqNum());
@@ -139,7 +139,7 @@ public class Netflow9ProtobufValidationTest {
 
     private List<Flow> getFlowsForPayloadsInSession(List<byte[]> payloads) {
         final List<Flow> flows = new ArrayList<>();
-        final Session session = new TcpSession(InetAddress.getLoopbackAddress());
+        final Session session = new TcpSession(InetAddress.getLoopbackAddress(), () -> new SequenceNumberTracker(32));
 
         for (byte[] payload : payloads) {
             final ByteBuf buffer = Unpooled.wrappedBuffer(payload);
@@ -149,19 +149,14 @@ public class Netflow9ProtobufValidationTest {
                 final Packet packet = new Packet(session, header, buffer);
                 packet.getRecords().forEach(rec -> {
 
-                    byte[] message = new byte[0];
+                    final FlowMessage flowMessage;
                     try {
-                        message = buildAndSerialize(Protocol.NETFLOW9, rec);
+                        flowMessage = buildAndSerialize(Protocol.NETFLOW9, rec).build();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    try {
-                        FlowMessage flowMessage = FlowMessage.parseFrom(message);
-                        flows.addAll(nf9Converter.convert(flowMessage));
-                    } catch (InvalidProtocolBufferException e) {
-                        throw new RuntimeException(e);
 
-                    }
+                    flows.addAll(nf9Converter.convert(flowMessage, Instant.now()));
                 });
             } catch (InvalidPacketException e) {
                 throw new RuntimeException(e);

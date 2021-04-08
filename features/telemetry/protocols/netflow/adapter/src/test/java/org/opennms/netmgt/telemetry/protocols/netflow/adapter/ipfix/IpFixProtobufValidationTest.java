@@ -38,6 +38,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,11 +52,10 @@ import org.opennms.netmgt.telemetry.protocols.netflow.parser.InvalidPacketExcept
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.Protocol;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.ipfix.proto.Header;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.ipfix.proto.Packet;
+import org.opennms.netmgt.telemetry.protocols.netflow.parser.session.SequenceNumberTracker;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.session.Session;
 import org.opennms.netmgt.telemetry.protocols.netflow.parser.session.TcpSession;
 import org.opennms.netmgt.telemetry.protocols.netflow.transport.FlowMessage;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -78,7 +78,7 @@ public class IpFixProtobufValidationTest {
         Utils.JsonConverter jsonConverter = new Utils.JsonConverter();
         List<String> jsonStrings = jsonConverter.getJsonStringFromResources("/flows/ipfix_test_1.json",
                 "/flows/ipfix_test_2.json");
-        List<Flow> jsonData = jsonConverter.convert(jsonStrings);
+        List<Flow> jsonData = jsonConverter.convert(jsonStrings, Instant.now());
         assertThat(jsonData, hasSize(8));
         for (int i = 0; i < 8; i++) {
             Assert.assertEquals(flows.get(i).getFlowSeqNum(), jsonData.get(i).getFlowSeqNum());
@@ -134,7 +134,7 @@ public class IpFixProtobufValidationTest {
 
     private List<Flow> getFlowsForPayloadsInSession(List<byte[]> payloads) {
         final List<Flow> flows = new ArrayList<>();
-        final Session session = new TcpSession(InetAddress.getLoopbackAddress());
+        final Session session = new TcpSession(InetAddress.getLoopbackAddress(), () -> new SequenceNumberTracker(32));
         for (byte[] payload : payloads) {
             final ByteBuf buffer = Unpooled.wrappedBuffer(payload);
             final Header header;
@@ -144,18 +144,14 @@ public class IpFixProtobufValidationTest {
                 final Packet packet = new Packet(session, header, slice(buffer, header.payloadLength()));
                 packet.getRecords().forEach(rec -> {
 
-                    byte[] message = new byte[0];
+                    final FlowMessage flowMessage;
                     try {
-                        message = Utils.buildAndSerialize(Protocol.IPFIX, rec);
+                        flowMessage = Utils.buildAndSerialize(Protocol.IPFIX, rec).build();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    try {
-                        FlowMessage flowMessage = FlowMessage.parseFrom(message);
-                        flows.addAll(ipFixConverter.convert(flowMessage));
-                    } catch (InvalidProtocolBufferException e) {
-                        throw new RuntimeException(e);
-                    }
+
+                    flows.addAll(ipFixConverter.convert(flowMessage, Instant.now()));
                 });
             } catch (InvalidPacketException e) {
                 throw new RuntimeException(e);

@@ -41,6 +41,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,19 +126,14 @@ public class Netflow5ConverterTest {
                 final Packet packet = new Packet(header, buffer);
                 packet.getRecords().forEach(rec -> {
 
-                    byte[] message = new byte[0];
+                    final FlowMessage flowMessage;
                     try {
-                        message = buildAndSerialize(Protocol.NETFLOW5, rec);
+                        flowMessage = buildAndSerialize(Protocol.NETFLOW5, rec).build();
                     } catch (IllegalFlowException e) {
                         throw new RuntimeException(e);
                     }
 
-                    try {
-                        FlowMessage flowMessage = FlowMessage.parseFrom(message);
-                        flows.addAll(nf5Converter.convert(flowMessage));
-                    } catch (InvalidProtocolBufferException e) {
-                        throw new RuntimeException(e);
-                    }
+                    flows.addAll(nf5Converter.convert(flowMessage, Instant.now()));
 
                 });
             } catch (InvalidPacketException e) {

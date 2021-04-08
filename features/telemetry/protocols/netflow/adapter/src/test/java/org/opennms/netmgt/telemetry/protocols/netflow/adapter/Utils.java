@@ -32,6 +32,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,17 +59,17 @@ import com.google.protobuf.util.JsonFormat;
 public class Utils {
 
 
-    public static byte[] buildAndSerialize(Protocol protocol, Iterable<Value<?>> record) throws IllegalFlowException {
+    public static FlowMessage.Builder buildAndSerialize(Protocol protocol, Iterable<Value<?>> record) throws IllegalFlowException {
         RecordEnrichment enrichment = (address -> Optional.empty());
         if (protocol.equals(Protocol.NETFLOW5)) {
-            Netflow5MessageBuilder builder = new Netflow5MessageBuilder(record, enrichment);
-            return builder.buildData();
+            Netflow5MessageBuilder builder = new Netflow5MessageBuilder();
+            return builder.buildMessage(record, enrichment);
         } else if (protocol.equals(Protocol.NETFLOW9)) {
-            Netflow9MessageBuilder builder = new Netflow9MessageBuilder(record, enrichment);
-            return builder.buildData();
+            Netflow9MessageBuilder builder = new Netflow9MessageBuilder();
+            return builder.buildMessage(record, enrichment);
         } else if (protocol.equals(Protocol.IPFIX)) {
-            IpFixMessageBuilder builder = new IpFixMessageBuilder(record, enrichment);
-            return builder.buildData();
+            IpFixMessageBuilder builder = new IpFixMessageBuilder();
+            return builder.buildMessage(record, enrichment);
         }
         return null;
     }
@@ -100,7 +101,7 @@ public class Utils {
         }
 
         @Override
-        public List<Flow> convert(List<String> resources) {
+        public List<Flow> convert(List<String> resources, final Instant receivedAt) {
 
             List<Flow> flows = new ArrayList<>();
 
@@ -108,7 +109,7 @@ public class Utils {
                 try {
                     FlowMessage.Builder builder = FlowMessage.newBuilder();
                     JsonFormat.parser().merge(resource, builder);
-                    flows.add(new NetflowMessage(builder.build()));
+                    flows.add(new NetflowMessage(builder.build(), receivedAt));
                 } catch (InvalidProtocolBufferException e) {
                     //Ignore.
                 }

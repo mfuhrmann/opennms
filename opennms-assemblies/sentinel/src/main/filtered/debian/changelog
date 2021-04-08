@@ -1,3 +1,75 @@
+opennms-sentinel (27.1.1-1) stable; urgency=high
+
+  * New minor release.  It contains a few enhancements, as well as a number of
+    bug fixes including some XSS and CSRF cleanups and a Jetty DoS CVE.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.1.1/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 06 Apr 2021 12:09:00 -0400
+ 
+opennms-sentinel (27.1.0-1) stable; urgency=medium
+
+  * New minor release.  It contains a bunch of bug fixes, as well as a number of
+    enhancements including a refactor of our BGP Monitoring Protocol integration.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.1.0/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 02 Mar 2021 11:42:00 -0400
+ 
+opennms-sentinel (27.0.5-1) stable; urgency=high
+
+  * New minor release.  It contains just a couple of bug fixes, most importantly a
+    fix to provisioning that could break update to existing nodes when scanning.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.0.5/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 09 Feb 2021 12:38:00 -0400
+ 
+opennms-sentinel (27.0.4-1) stable; urgency=high
+
+  * New minor release.  It contains a number of bug fixes relating to WMI, the
+    Minion, flows, reports, JEXL processing, and more, as well as a few small
+    enhancements.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.0.4/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 02 Feb 2021 15:23:00 -0400
+ 
+opennms-sentinel (27.0.3-1) stable; urgency=low
+
+  * New minor release.  It contains a number of mostly esoteric bug fixes, and a
+    few small enhancements.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.0.3/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 05 Jan 2021 10:44:00 -0400
+ 
+opennms-sentinel (27.0.2-1) stable; urgency=high
+
+  * New minor release.  It contains a few bug fixes including a critical fix to a
+    regression in 27.0.1 that would keep OpenNMS from starting if you had existing
+    reports in the database.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.0.2/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 03 Dec 2020 13:52:00 -0400
+ 
+opennms-sentinel (27.0.1-1) stable; urgency=high
+
+  * New minor release.  It contains a number of bugfixes including a critical CVE
+    fix for Jetty, as well as a number of other smaller changes and improvements.
+    
+    For details on what has changed, see:
+    https://docs.opennms.org/opennms/releases/27.0.1/releasenotes/releasenotes.html
+
+ -- OpenNMS Release Manager <opennms@opennms.org>  Tue, 01 Dec 2020 12:08:00 -0400
+ 
 opennms-sentinel (27.0.0-1) stable; urgency=high
 
   * New major release.  It contains many bug fixes and a ton of new features, most
